@@ -10,6 +10,7 @@ public class Camera_Platforming : MonoBehaviour
     public int delay;
     public float camMaxZoom;
     public float camMinZoom;
+    public float offsetY;
     
     void Start()
     {
@@ -22,10 +23,10 @@ public class Camera_Platforming : MonoBehaviour
     {
         camGirl.position = followSpots[trackSpot + delay];
         UpdateFS();
-        if (Input.GetKey(KeyCode.Minus))
+        if (Input.GetKey(KeyCode.Equals))
         {
             ShrinkShot();
-        } else if (Input.GetKey(KeyCode.Equals))
+        } else if (Input.GetKey(KeyCode.Minus))
         {
             WidenShot();
         }
@@ -35,7 +36,7 @@ public class Camera_Platforming : MonoBehaviour
     {
         for (int i = 0; i < followSpots.Length; i++)
         {
-            followSpots[i] = new Vector3(target.position.x, target.position.y, -10f);
+            followSpots[i] = new Vector3(target.position.x, target.position.y + offsetY, -10f);
         }
     }
     

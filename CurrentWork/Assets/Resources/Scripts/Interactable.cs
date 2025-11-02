@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour
 {
-    private void OnCollisionStay(Collision other)
+    public String[] dialogue;
+
+    void Update()
     {
-        throw new NotImplementedException();
+        
     }
 }
