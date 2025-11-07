@@ -9,8 +9,4 @@ check this out:
 https://docs.google.com/document/d/1Ip-gqmhGJLx2NaVkpGwxRbcfI33P9AzBGSTxjP0Ka9E/edit?usp=sharing
 
 TODO:
-- Highlight Selection
-- Have semi-functioning battle sequence/make selecting actually do something
-- Make a free-roam mode (default mode)
-- Transition into battle by activation
-- Go from there
+https://docs.google.com/document/d/19cskNPXnSyEDvyI0jzOiquOgqiDQ4uHuDyTpYjHSQa4/edit?usp=sharing
