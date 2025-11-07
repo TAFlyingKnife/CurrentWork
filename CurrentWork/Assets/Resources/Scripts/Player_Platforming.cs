@@ -1,22 +1,20 @@
-using Unity.Mathematics.Geometry;
-using UnityEditor.AssetImporters;
 using UnityEngine;
 
 public class Player_Platforming : MonoBehaviour
 {
     [SerializeField] private float speed = 10f;
     [SerializeField] private float jumpPower = 5f;
-    private Rigidbody2D cunt;
+    private Rigidbody2D rb;
     private Transform player;
     private Transform sprite;
-    private Vector2 getGoin;
+    private Vector2 getGoin; //Read this in Demoman's voice
     private bool grounded;
     private bool specialJump;
     private Vector2 spawn;
 
     void Start()
     {
-        cunt = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         player = GetComponent<Transform>();
         sprite = transform.Find("Sprite");
         spawn = player.position;
@@ -25,12 +23,12 @@ public class Player_Platforming : MonoBehaviour
     void Update()
     {
         //Horizontal Movement
-        getGoin = new Vector2(Input.GetAxis("Horizontal") * speed, cunt.linearVelocity.y);
+        getGoin = new Vector2(Input.GetAxis("Horizontal") * speed, rb.linearVelocity.y);
         
         //Jump and Special Jump
         if (Input.GetKeyDown(KeyCode.Space) && grounded)
         {
-            cunt.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+            rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
         } else if (Input.GetKeyDown(KeyCode.Space) && specialJump)
         {
             SpecialJump();
@@ -45,7 +43,7 @@ public class Player_Platforming : MonoBehaviour
 
     void FixedUpdate()
     {
-        cunt.linearVelocity = getGoin;
+        rb.linearVelocity = getGoin;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -63,7 +61,7 @@ public class Player_Platforming : MonoBehaviour
 
     void OnCollisionExit2D(Collision2D collision)
     {
-        if (cunt.linearVelocity.y != 0)
+        if (rb.linearVelocity.y != 0)
         {
             grounded = false;
         }
@@ -74,23 +72,23 @@ public class Player_Platforming : MonoBehaviour
         /* Special jump power is inversely proportional to upwards velocity. 
          * It starts at 0% directly as you jump, and increases to 100% once you stop going up.
          */
-        if (cunt.linearVelocity.y < 0)
+        if (rb.linearVelocity.y < 0)
         {
-            cunt.linearVelocityY = 0f;
+            rb.linearVelocityY = 0f;
         }
-        cunt.AddForce(Vector2.up * (jumpPower - cunt.linearVelocityY), ForceMode2D.Impulse);
+        rb.AddForce(Vector2.up * (jumpPower - rb.linearVelocityY), ForceMode2D.Impulse);
         specialJump = false;
     }
 
     void Reset()
     {
         player.position = spawn;
-        cunt.linearVelocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
     }
 
     void OnGUI()
     {
-        GUI.Label(new Rect(10, 10, 300, 100), "Version:\nAlpha 0.11\n\nCurrent Objective:\nInteractions and Flavor Text");
+        GUI.Label(new Rect(10, 10, 300, 100), "Version:\nAlpha 0.12\n\nCurrent Objective:\nInteractions and Flavor Text");
         GUI.Label(new Rect(10, 100, 300, 100), "Controls:\nR to Reset\nE to Interact\nA and D to Move\nSpace to Jump\nJump Midair to Special Jump");
         GUI.Label(new Rect(10, 200, 300, 100), "Grounded:" + grounded + "\nSpecialJump:" + specialJump);
     }

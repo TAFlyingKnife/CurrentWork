@@ -4,9 +4,5 @@ using UnityEngine;
 public class Interactable : MonoBehaviour
 {
     public String[] dialogue;
-
-    void Update()
-    {
-        
-    }
+    public int localIndex = 0;
 }
