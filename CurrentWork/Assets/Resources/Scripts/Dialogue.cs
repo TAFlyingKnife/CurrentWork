@@ -9,6 +9,8 @@ public class Dialogue : MonoBehaviour
     public string[] lines;
     public float textSpeed;
     private bool hidden = true;
+    private Rigidbody2D rb;
+    [SerializeField] private GameObject player;
 
     //indexes Chars and next string
     private int index;
@@ -16,6 +18,7 @@ public class Dialogue : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        rb = player.GetComponent<Rigidbody2D>();
         HideText();
         textComponent.text = string.Empty;
     }
@@ -23,6 +26,7 @@ public class Dialogue : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        lines = player.GetComponent<OwOwhatsThis>().GiveText();
         /* Starts text if none is present,
          * advances to end of string if one is still running,
          * advances to next string if current is done,
@@ -30,19 +34,24 @@ public class Dialogue : MonoBehaviour
          */
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (hidden)
-            {
-                ShowText();
-                StartDialogue();
-            }
-            else if (textComponent.text == lines[index])
-            {
-                NextLine();
-            }
-            else
-            {
-                StopAllCoroutines();
-                textComponent.text = lines[index];
+            //This should prevent dialogue from playing if there is no dialogue to show
+            if(lines != null){
+                
+                //If the box is hidden, this makes it not
+                if (hidden)
+                {
+                    ShowText();
+                    StartDialogue();
+                }
+                else if (textComponent.text == lines[index])
+                {
+                    NextLine();
+                }
+                else
+                {
+                    StopAllCoroutines();
+                    textComponent.text = lines[index];
+                }
             }
         }
 

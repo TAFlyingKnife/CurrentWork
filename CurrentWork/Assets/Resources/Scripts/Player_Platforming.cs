@@ -88,7 +88,7 @@ public class Player_Platforming : MonoBehaviour
 
     void OnGUI()
     {
-        GUI.Label(new Rect(10, 10, 300, 100), "Version:\nAlpha 0.12\n\nCurrent Objective:\nInteractions and Flavor Text");
+        GUI.Label(new Rect(10, 10, 300, 100), "Version:\nAlpha 0.13\n\nCurrent Objective:Interactions and Flavor Text\nNeed: Fix detection for talkable objects and better input system");
         GUI.Label(new Rect(10, 100, 300, 100), "Controls:\nR to Reset\nE to Interact\nA and D to Move\nSpace to Jump\nJump Midair to Special Jump");
         GUI.Label(new Rect(10, 200, 300, 100), "Grounded:" + grounded + "\nSpecialJump:" + specialJump);
     }
