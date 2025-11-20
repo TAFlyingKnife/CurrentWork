@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player_Platforming : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class Player_Platforming : MonoBehaviour
     private Transform player;
     private Transform sprite;
     private Vector2 getGoin; //Read this in Demoman's voice
+    private float schmoove; //float for new Input system
     private bool grounded;
     private bool specialJump;
     private Vector2 spawn;
@@ -23,7 +25,7 @@ public class Player_Platforming : MonoBehaviour
     void Update()
     {
         //Horizontal Movement
-        getGoin = new Vector2(Input.GetAxis("Horizontal") * speed, rb.linearVelocity.y);
+        getGoin = new Vector2(schmoove * speed, rb.linearVelocity.y);
         
         //Jump and Special Jump
         if (Input.GetKeyDown(KeyCode.Space) && grounded)
@@ -84,6 +86,11 @@ public class Player_Platforming : MonoBehaviour
     {
         player.position = spawn;
         rb.linearVelocity = Vector2.zero;
+    }
+
+    public void Move(InputAction.CallbackContext context)
+    {
+        schmoove = context.ReadValue<Vector2>().x;
     }
 
     void OnGUI()

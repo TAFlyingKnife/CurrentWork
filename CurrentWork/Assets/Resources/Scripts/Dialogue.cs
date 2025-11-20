@@ -26,7 +26,7 @@ public class Dialogue : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        lines = player.GetComponent<OwOwhatsThis>().GiveText();
+        lines = player.GetComponentInChildren<OwOwhatsThis>().GiveText();
         /* Starts text if none is present,
          * advances to end of string if one is still running,
          * advances to next string if current is done,
