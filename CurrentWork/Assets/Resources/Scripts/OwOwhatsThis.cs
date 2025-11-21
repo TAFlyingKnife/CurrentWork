@@ -10,7 +10,7 @@ public class OwOwhatsThis : MonoBehaviour
     {
         return texts;
     }
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Interact"))
         {
@@ -19,7 +19,7 @@ public class OwOwhatsThis : MonoBehaviour
         }
     }
 
-    void OnCollisionExit2D(Collision2D collision)
+    void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Interact"))
         {

@@ -27,14 +27,7 @@ public class Player_Platforming : MonoBehaviour
         //Horizontal Movement
         getGoin = new Vector2(schmoove * speed, rb.linearVelocity.y);
         
-        //Jump and Special Jump
-        if (Input.GetKeyDown(KeyCode.Space) && grounded)
-        {
-            rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
-        } else if (Input.GetKeyDown(KeyCode.Space) && specialJump)
-        {
-            SpecialJump();
-        }
+        //NOTE: Jumping is now handled by the function Jump() separate from Update
 
         //Reset button
         if (Input.GetKeyDown(KeyCode.R))
@@ -69,19 +62,6 @@ public class Player_Platforming : MonoBehaviour
         }
     }
 
-    void SpecialJump()
-    {
-        /* Special jump power is inversely proportional to upwards velocity. 
-         * It starts at 0% directly as you jump, and increases to 100% once you stop going up.
-         */
-        if (rb.linearVelocity.y < 0)
-        {
-            rb.linearVelocityY = 0f;
-        }
-        rb.AddForce(Vector2.up * (jumpPower - rb.linearVelocityY), ForceMode2D.Impulse);
-        specialJump = false;
-    }
-
     void Reset()
     {
         player.position = spawn;
@@ -93,10 +73,29 @@ public class Player_Platforming : MonoBehaviour
         schmoove = context.ReadValue<Vector2>().x;
     }
 
+    public void Jump(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            if (grounded)
+            {
+                rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+            } else if (specialJump)
+            {
+                if (rb.linearVelocity.y < 0)
+                {
+                    rb.linearVelocityY = 0f;
+                }
+                rb.AddForce(Vector2.up * (jumpPower - rb.linearVelocityY), ForceMode2D.Impulse);
+                specialJump = false;
+            }
+        }
+    }
+
     void OnGUI()
     {
-        GUI.Label(new Rect(10, 10, 300, 100), "Version:\nAlpha 0.13\n\nCurrent Objective:Interactions and Flavor Text\nNeed: Fix detection for talkable objects and better input system");
+        GUI.Label(new Rect(10, 10, 300, 100), "Version:\nAlpha 0.20\n\nCurrent Objective: Automatic Platforms and Tilemap");
         GUI.Label(new Rect(10, 100, 300, 100), "Controls:\nR to Reset\nE to Interact\nA and D to Move\nSpace to Jump\nJump Midair to Special Jump");
-        GUI.Label(new Rect(10, 200, 300, 100), "Grounded:" + grounded + "\nSpecialJump:" + specialJump);
+        GUI.Label(new Rect(10, 200, 300, 100), "Grounded: " + grounded + "\nSpecialJump: " + specialJump);
     }
 }
