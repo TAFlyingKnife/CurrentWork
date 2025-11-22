@@ -94,7 +94,7 @@ public class Player_Platforming : MonoBehaviour
 
     void OnGUI()
     {
-        GUI.Label(new Rect(10, 10, 300, 100), "Version:\nAlpha 0.20\n\nCurrent Objective: Automatic Platforms and Tilemap");
+        GUI.Label(new Rect(10, 10, 300, 100), "Version:\nAlpha 0.25\n\nCurrent Objective: Automatic Platforms");
         GUI.Label(new Rect(10, 100, 300, 100), "Controls:\nR to Reset\nE to Interact\nA and D to Move\nSpace to Jump\nJump Midair to Special Jump");
         GUI.Label(new Rect(10, 200, 300, 100), "Grounded: " + grounded + "\nSpecialJump: " + specialJump);
     }
